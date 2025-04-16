@@ -1,5 +1,7 @@
 import { paths } from 'src/routes/paths';
+
 import { CONFIG } from 'src/config-global';
+
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -21,9 +23,7 @@ export const navData = [
    */
   {
     subheader: 'Dashboard',
-    items: [
-      { title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-    ],
+    items: [{ title: 'Dashboard', path: paths.dashboard.root, icon: ICONS.dashboard }],
   },
   /**
    * Management

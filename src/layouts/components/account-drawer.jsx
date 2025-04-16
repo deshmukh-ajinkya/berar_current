@@ -1,4 +1,4 @@
-import { useState, useCallback,useContext,useEffect  } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -13,18 +13,17 @@ import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { varAlpha } from 'src/theme/styles';
 
-import { AuthContext } from 'src/auth/context/auth-context';
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateAvatar } from 'src/components/animate';
+
+import { AuthContext } from 'src/auth/context/auth-context';
+
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
 
-
 // ----------------------------------------------------------------------
-
 
 export function AccountDrawer({ data = [], sx, ...other }) {
   const theme = useTheme();
@@ -33,7 +32,7 @@ export function AccountDrawer({ data = [], sx, ...other }) {
 
   const pathname = usePathname();
 
-  const { user,checkUserSession } = useContext(AuthContext);
+  const { user, checkUserSession } = useContext(AuthContext);
 
   const [open, setOpen] = useState(false);
 
@@ -56,7 +55,7 @@ export function AccountDrawer({ data = [], sx, ...other }) {
     },
     [handleCloseDrawer, router]
   );
-// console.log(user);
+  // console.log(user);
   const renderAvatar = (
     <AnimateAvatar
       width={96}
@@ -69,13 +68,19 @@ export function AccountDrawer({ data = [], sx, ...other }) {
         },
       }}
     >
-   {user?.full_name?.charAt(0).toUpperCase()}
+      {user?.full_name?.charAt(0).toUpperCase()}
     </AnimateAvatar>
   );
 
   return (
     <>
-      <AccountButton onClick={handleOpenDrawer} photoURL="UserPic" displayName={user?.full_name?.charAt(0).toUpperCase()} sx={sx} {...other} />
+      <AccountButton
+        onClick={handleOpenDrawer}
+        photoURL="UserPic"
+        displayName={user?.full_name?.charAt(0).toUpperCase()}
+        sx={sx}
+        {...other}
+      />
 
       <Drawer
         open={open}
@@ -96,11 +101,11 @@ export function AccountDrawer({ data = [], sx, ...other }) {
             {renderAvatar}
 
             <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
-            {user?.full_name?.toUpperCase()}
+              {user?.full_name?.toUpperCase()}
             </Typography>
 
             <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }} noWrap>
-            {user?.email?.toUpperCase()}
+              {user?.email?.toUpperCase()}
             </Typography>
           </Stack>
 

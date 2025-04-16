@@ -11,7 +11,7 @@ export const CONFIG = {
   assetsDir: import.meta.env.VITE_ASSETS_DIR ?? '',
   /**
    * Auth
-   * @method jwt 
+   * @method jwt
    */
   auth: {
     method: 'jwt',

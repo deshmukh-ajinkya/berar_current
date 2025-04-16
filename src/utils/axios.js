@@ -34,9 +34,9 @@ export const endpoints = {
   auth: {
     // me: '/api/v1/auth/checkLogin',
     signIn: '/api/users/request-otp/',
-    twoStep:'/api/users/verify-otp/',
-    profileget:'/api/users/profile/',
-    loanDetails:'api/customer_live/loan-detail/',
+    twoStep: '/api/users/verify-otp/',
+    profileget: '/api/users/profile/',
+    loanDetails: 'api/customer_live/loan-detail/',
     // forgotPassword:'/api/v1/auth/forgot-password',
     // resetPassword: (token) =>`api/v1/auth/reset-password/${token}`,
     // validToken: (token) => `/api/v1/auth/validate-token/${token}`,

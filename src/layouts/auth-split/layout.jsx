@@ -6,7 +6,6 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config-global';
-import { Logo } from 'src/components/logo';
 
 import { Section } from './section';
 import { Main, Content } from './main';
@@ -16,7 +15,7 @@ import { SettingsButton } from '../components/settings-button';
 
 // ----------------------------------------------------------------------
 
-export function AuthSplitLayout({ sx,section, children, header }) {
+export function AuthSplitLayout({ sx, section, children, header }) {
   const layoutQuery = 'md';
 
   return (
@@ -66,11 +65,11 @@ export function AuthSplitLayout({ sx,section, children, header }) {
     >
       <Main layoutQuery={layoutQuery}>
         <Section
-        title={section?.title}
-        layoutQuery={layoutQuery}
-        imgUrl={section?.imgUrl}
-        method={CONFIG.auth.method}
-        subtitle={section?.subtitle}
+          title={section?.title}
+          layoutQuery={layoutQuery}
+          imgUrl={section?.imgUrl}
+          method={CONFIG.auth.method}
+          subtitle={section?.subtitle}
           methods={[
             {
               label: '',

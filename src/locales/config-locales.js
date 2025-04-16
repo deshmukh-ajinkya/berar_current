@@ -25,5 +25,4 @@ export const changeLangMessages = {
     error: 'Error changing language!',
     loading: 'Loading...',
   },
-  
 };

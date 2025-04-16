@@ -13,8 +13,6 @@ import {
   _nativeL,
   _percents,
   _booleans,
-
- 
 } from './assets';
 
 // ----------------------------------------------------------------------
@@ -25,8 +23,7 @@ export const _mock = {
   boolean: (index) => _booleans[index],
   role: (index) => _roles[index],
   // Text
-  
-  
+
   // Number
   number: {
     percent: (index) => _percents[index],

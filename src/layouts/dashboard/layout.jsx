@@ -5,13 +5,15 @@ import { iconButtonClasses } from '@mui/material/IconButton';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { Logo } from 'src/components/logo';
-
-import { useSettingsContext } from 'src/components/settings';
 import { _notifications } from 'src/_mock/_others';
+
+import { Logo } from 'src/components/logo';
+import { useSettingsContext } from 'src/components/settings';
+
 import { Main } from './main';
 import { NavMobile } from './nav-mobile';
 import { layoutClasses } from '../classes';
+import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { MenuButton } from '../components/menu-button';
@@ -21,7 +23,6 @@ import { StyledDivider, useNavColorVars } from './styles';
 import { AccountDrawer } from '../components/account-drawer';
 import { SettingsButton } from '../components/settings-button';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
-import { NavVertical } from './nav-vertical';
 import { NotificationsDrawer } from '../components/notifications-drawer';
 
 // ----------------------------------------------------------------------
@@ -123,7 +124,6 @@ export function DashboardLayout({ sx, children, header, data }) {
                     }}
                   />
                 )}
-               
               </>
             ),
             rightArea: (
@@ -131,7 +131,7 @@ export function DashboardLayout({ sx, children, header, data }) {
                 {/* -- Notifications popover -- */}
                 <NotificationsDrawer data={_notifications} />
                 <SettingsButton />
-                
+
                 {/* -- Account drawer -- */}
                 <AccountDrawer data={_account} />
               </Box>
@@ -139,26 +139,25 @@ export function DashboardLayout({ sx, children, header, data }) {
           }}
         />
       }
-       /** **************************************
+      /** **************************************
        * Sidebar
        *************************************** */
-            sidebarSection={
-              isNavHorizontal ? null : (
-                <NavVertical
-                  data={navData}
-                  isNavMini={isNavMini}
-                  layoutQuery={layoutQuery}
-                  cssVars={navColorVars.section}
-                  onToggleNav={() =>
-                    settings.onUpdateField(
-                      'navLayout',
-                      settings.navLayout === 'vertical' ? 'mini' : 'vertical'
-                    )
-                  }
-                />
+      sidebarSection={
+        isNavHorizontal ? null : (
+          <NavVertical
+            data={navData}
+            isNavMini={isNavMini}
+            layoutQuery={layoutQuery}
+            cssVars={navColorVars.section}
+            onToggleNav={() =>
+              settings.onUpdateField(
+                'navLayout',
+                settings.navLayout === 'vertical' ? 'mini' : 'vertical'
               )
             }
-     
+          />
+        )
+      }
       /** **************************************
        * Footer
        *************************************** */

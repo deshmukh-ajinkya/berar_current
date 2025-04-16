@@ -1,16 +1,21 @@
 import { z as zod } from 'zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import LoadingButton from '@mui/lab/LoadingButton';
-import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import { paths } from 'src/routes/paths';
-import { useState } from 'react';
 import { useRouter } from 'src/routes/hooks';
+
 import { PasswordIcon } from 'src/assets/icons';
+
 import { Form, Field } from 'src/components/hook-form';
+
 import { forgotPassword } from '../context';
 
 const isEmailOrMobile = (value) => {
@@ -21,8 +26,8 @@ const isEmailOrMobile = (value) => {
 // Schema for validation
 const ResetPasswordSchema = zod.object({
   userName: zod.string().min(1, { message: 'Email is required!' }).refine(isEmailOrMobile, {
-      message: 'Username must be a valid email address or a 10-digit mobile number!',
-    }),
+    message: 'Username must be a valid email address or a 10-digit mobile number!',
+  }),
 });
 export function ForgotPasswordView() {
   const router = useRouter();
@@ -41,13 +46,13 @@ export function ForgotPasswordView() {
     formState: { isSubmitting },
   } = methods;
   const onSubmit = handleSubmit(async (data) => {
-    console.log('ddd:',data);
+    console.log('ddd:', data);
     try {
-      await forgotPassword({userName:data.userName});
-      setIsEmailSent(true); 
+      await forgotPassword({ userName: data.userName });
+      setIsEmailSent(true);
       setSuccessMsg('Link send Succesfully');
     } catch (error) {
-      console.error('ttt:',error);
+      console.error('ttt:', error);
       setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
@@ -67,7 +72,8 @@ export function ForgotPasswordView() {
           Forgot your password?
         </Typography>
         <Typography variant="body2">
-        A password reset link has been sent to your registered email and mobile number. Please check your inbox or SMS to proceed with resetting your password.
+          A password reset link has been sent to your registered email and mobile number. Please
+          check your inbox or SMS to proceed with resetting your password.
         </Typography>
       </Box>
       {/* Form Section */}
@@ -79,32 +85,32 @@ export function ForgotPasswordView() {
             </Alert>
           )}
           {!!successMsg && (
-                  <Alert severity="success" sx={{ mb: 3 }}>
-                    {successMsg}
-                  </Alert>
-                )}
-          
-            <Field.Text sx={{ mb: 2 }}
-              name="userName"
-              label="User Name"
-              placeholder="example@gmail.com"
-              InputProps={{
-                sx: {
-                  width: '100%', 
-                },
-              }}
-            />
-            <LoadingButton
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              loading={isSubmitting}
-              loadingIndicator="Sending..."
-            >
-              Send request
-            </LoadingButton>
-          
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {successMsg}
+            </Alert>
+          )}
+
+          <Field.Text
+            sx={{ mb: 2 }}
+            name="userName"
+            label="User Name"
+            placeholder="example@gmail.com"
+            InputProps={{
+              sx: {
+                width: '100%',
+              },
+            }}
+          />
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
+            loadingIndicator="Sending..."
+          >
+            Send request
+          </LoadingButton>
         </Form>
       ) : (
         <Box textAlign="center">

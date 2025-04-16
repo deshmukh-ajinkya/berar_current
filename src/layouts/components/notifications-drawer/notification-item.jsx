@@ -11,7 +11,6 @@ import { fToNow } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 
-import { Label } from 'src/components/label';
 import { FileThumbnail } from 'src/components/file-thumbnail';
 
 // ----------------------------------------------------------------------
@@ -164,10 +163,6 @@ export function NotificationItem({ notification }) {
     </Stack>
   );
 
-
-
-
-
   return (
     <ListItemButton
       disableRipple
@@ -181,10 +176,7 @@ export function NotificationItem({ notification }) {
 
       {renderAvatar}
 
-      <Stack sx={{ flexGrow: 1 }}>
-        {renderText}
-     
-      </Stack>
+      <Stack sx={{ flexGrow: 1 }}>{renderText}</Stack>
     </ListItemButton>
   );
 }

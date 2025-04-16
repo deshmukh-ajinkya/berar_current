@@ -1,32 +1,41 @@
 import { z as zod } from 'zod';
-import { useRouter } from 'src/routes/hooks';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Box, Alert } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Form, Field } from 'src/components/hook-form';
-import { FormHead } from 'src/auth/components/form-head';
+
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
+import { Form, Field } from 'src/components/hook-form';
+
+import { FormHead } from 'src/auth/components/form-head';
+
 import { signInWithPassword } from '../context';
 
 export const SignInSchema = zod.object({
   username: zod
     .string()
     .min(1, { message: 'Mobile/LAN number is required!' })
-    .refine((val) => {
-      const mobilePattern = /^\d{10}$/;
-      const loanNumericPattern = /^\d{5,7}$/;
-      const loanAlphaNumericPattern = /^[a-zA-Z0-9]{16}$/;
+    .refine(
+      (val) => {
+        const mobilePattern = /^\d{10}$/;
+        const loanNumericPattern = /^\d{5,7}$/;
+        const loanAlphaNumericPattern = /^[a-zA-Z0-9]{16}$/;
 
-      return (
-        mobilePattern.test(val) ||
-        loanNumericPattern.test(val) ||
-        loanAlphaNumericPattern.test(val)
-      );
-    }, {
-      message: 'Enter a valid 10-digit mobile number, 5-7 digit loan account number, or 16-character alphanumeric loan number.',
-    }),
+        return (
+          mobilePattern.test(val) ||
+          loanNumericPattern.test(val) ||
+          loanAlphaNumericPattern.test(val)
+        );
+      },
+      {
+        message:
+          'Enter a valid 10-digit mobile number, 5-7 digit loan account number, or 16-character alphanumeric loan number.',
+      }
+    ),
 });
 
 export function JwtSignInView() {
@@ -38,7 +47,10 @@ export function JwtSignInView() {
     defaultValues: { username: '' },
   });
 
-  const { handleSubmit, formState: { isSubmitting } } = methods;
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -50,7 +62,7 @@ export function JwtSignInView() {
       setErrorMsg(error.message || 'Something went wrong.');
     }
   });
-  
+
   return (
     <>
       <FormHead title="Sign in with Mobile Number/Lan Number" />
@@ -58,7 +70,11 @@ export function JwtSignInView() {
 
       <Form methods={methods} onSubmit={onSubmit}>
         <Box gap={3} display="flex" flexDirection="column">
-          <Field.Text name="username" label="Mobile Number / Lan Number" InputLabelProps={{ shrink: true }} />
+          <Field.Text
+            name="username"
+            label="Mobile Number / Lan Number"
+            InputLabelProps={{ shrink: true }}
+          />
           <LoadingButton
             fullWidth
             color="inherit"

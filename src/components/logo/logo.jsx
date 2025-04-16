@@ -24,29 +24,22 @@ export const Logo = forwardRef(
     const PRIMARY_DARKER = theme.vars.palette.primary.dark;
 
     /*
-  * OR using local (public folder)
-  * */
-  const singleLogo = (
-    <Box
-      alt="Single logo"
-      component="img"
-      src="/logo/logo-single.svg"
-      width="100%"
-      height="100%"
-      sx={{ mt:2 }}
-    />
-  );
+     * OR using local (public folder)
+     * */
+    const singleLogo = (
+      <Box
+        alt="Single logo"
+        component="img"
+        src="/logo/logo-single.svg"
+        width="100%"
+        height="100%"
+        sx={{ mt: 2 }}
+      />
+    );
 
-  const fullLogo = (
-    <Box
-      alt="Full logo"
-      component="img"
-      src="/logo/logo-full.svg"
-      width="100%"
-      height="100%"
-    />
-  );
-  
+    const fullLogo = (
+      <Box alt="Full logo" component="img" src="/logo/logo-full.svg" width="100%" height="100%" />
+    );
 
     // const singleLogo = (
     //   <svg

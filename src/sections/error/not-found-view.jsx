@@ -38,6 +38,6 @@ export function NotFoundView() {
           Go to home
         </Button>
       </Container>
-     </SimpleLayout>
+    </SimpleLayout>
   );
 }

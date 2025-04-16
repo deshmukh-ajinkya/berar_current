@@ -27,8 +27,7 @@ export const _account = [
       </SvgIcon>
     ),
   },
- 
- 
+
   {
     label: 'Account settings',
     href: '#',

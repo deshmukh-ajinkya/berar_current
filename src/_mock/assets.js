@@ -96,6 +96,3 @@ export const _roles = [
   `Legal Counsel`,
   `Training Coordinator`,
 ];
-
-
-

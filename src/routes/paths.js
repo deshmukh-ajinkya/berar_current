@@ -27,6 +27,4 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     lan_details: `${ROOTS.DASHBOARD}/lan-details/view`,
   },
-  
-  
 };

@@ -1,11 +1,6 @@
-
-import {
-  enUS as enUSDate,
-} from '@mui/x-date-pickers/locales';
+import { enUS as enUSDate } from '@mui/x-date-pickers/locales';
 // data grid (MUI)
-import {
-  enUS as enUSDataGrid,
-} from '@mui/x-data-grid/locales';
+import { enUS as enUSDataGrid } from '@mui/x-data-grid/locales';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +15,6 @@ export const allLangs = [
       components: { ...enUSDate.components, ...enUSDataGrid.components },
     },
   },
-  
 ];
 
 /**

@@ -1,17 +1,23 @@
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'src/routes/hooks';
+
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import LoadingButton from '@mui/lab/LoadingButton';
+
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
 import { EmailInboxIcon } from 'src/assets/icons';
+
 import { Form, Field } from 'src/components/hook-form';
+
 import { FormHead } from 'src/auth/components/form-head';
 import { FormResendCode } from 'src/auth/components/form-resend-code';
 import { FormReturnLink } from 'src/auth/components/form-return-link';
-import { setSession ,verifyOtp } from '../context';
+
+import { verifyOtp } from '../context';
 import { useAuthContext } from '../hooks';
 
 const VerifySchema = zod.object({
@@ -20,11 +26,13 @@ const VerifySchema = zod.object({
 
 function generateToken(username) {
   const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const payload = btoa(JSON.stringify({
-    sub: username,
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 3, // 3 days expiry
-  }));
+  const payload = btoa(
+    JSON.stringify({
+      sub: username,
+      iat: Math.floor(Date.now() / 1000),
+      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 3, // 3 days expiry
+    })
+  );
   const signature = btoa('secret');
   return `${header}.${payload}.${signature}`;
 }
@@ -57,7 +65,7 @@ export function VerifyView() {
       setError('code', { message: 'OTP verification failed. Please try again.' });
     }
   });
-  
+
   return (
     <>
       <FormHead
@@ -83,7 +91,7 @@ export function VerifyView() {
         </Box>
       </Form>
 
-      <FormResendCode onResendCode={() => { }} value={0} disabled={false} />
+      <FormResendCode onResendCode={() => {}} value={0} disabled={false} />
       <FormReturnLink href={paths.auth.signIn} />
     </>
   );

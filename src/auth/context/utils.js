@@ -1,6 +1,7 @@
 import { paths } from 'src/routes/paths';
-import { encryptValue } from 'src/utils/crypto';
+
 import axios from 'src/utils/axios';
+
 // import Cookies from 'js-cookie';
 import { STORAGE_KEY } from './constant';
 // ----------------------------------------------------------------------
@@ -28,7 +29,7 @@ export function isValidToken(accessToken) {
   if (!accessToken) {
     return false;
   }
-  
+
   try {
     const decoded = jwtDecode(accessToken);
 
@@ -60,7 +61,7 @@ export function tokenExpired(exp) {
   }, timeLeft);
 }
 // ----------------------------------------------------------------------
-export async function setSession(accessToken,userData) {
+export async function setSession(accessToken, userData) {
   try {
     if (accessToken) {
       sessionStorage.setItem(STORAGE_KEY, accessToken);
@@ -68,7 +69,7 @@ export async function setSession(accessToken,userData) {
       if (userData) {
         sessionStorage.setItem('user', JSON.stringify(userData));
       }
-      const decodedToken = jwtDecode(accessToken); 
+      const decodedToken = jwtDecode(accessToken);
 
       if (decodedToken && 'exp' in decodedToken) {
         tokenExpired(decodedToken.exp);

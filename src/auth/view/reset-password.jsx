@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from 'react';
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import InputAdornment from '@mui/material/InputAdornment';
+import Alert from '@mui/material/Alert';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { Iconify } from 'src/components/iconify';
+import LoadingButton from '@mui/lab/LoadingButton';
+import InputAdornment from '@mui/material/InputAdornment';
+
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { resetPassword, validToken } from '../context'; 
+
+import { Iconify } from 'src/components/iconify';
+
+import { validToken, resetPassword } from '../context';
 
 const ResetPasswordSchema = zod
   .object({
     newPassword: zod.string().min(8, { message: 'Password must be at least 8 characters long!' }),
-    confirmPassword: zod.string().min(8, { message: 'Password must be at least 8 characters long!' }),
+    confirmPassword: zod
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters long!' }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     path: ['confirmPassword'],
@@ -32,8 +38,8 @@ export default function ResetPasswordView() {
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [isTokenValid, setIsTokenValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [newPasswordVisible, setNewPasswordVisible] = useState(false); 
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); 
+  const [newPasswordVisible, setNewPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const token = searchParams.get('token');
   const {
     register,
@@ -54,10 +60,10 @@ export default function ResetPasswordView() {
         return;
       }
       try {
-        const data = await validToken(token); 
-         console.log('Token Validation Response:', data);
+        const data = await validToken(token);
+        console.log('Token Validation Response:', data);
         if (data.status === 'success') {
-          setIsTokenValid(true); 
+          setIsTokenValid(true);
         } else {
           setErrorMsg(data.message || 'Invalid or expired reset token.');
           router.push(paths.page404);
@@ -67,11 +73,11 @@ export default function ResetPasswordView() {
         setErrorMsg(error.message || 'An error occurred while validating the token.');
         router.push(paths.page404);
       } finally {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     };
     validateToken();
-  }, [token,router]);
+  }, [token, router]);
   const onSubmit = async (data) => {
     const resetToken = new URLSearchParams(window.location.search).get('token');
     try {
@@ -93,16 +99,16 @@ export default function ResetPasswordView() {
       minHeight="70vh"
       padding={3}
     >
-     {!!errorMsg && (
-                <Alert severity="error" sx={{ mb: 3 }}>
-                  {errorMsg}
-                </Alert>
-              )}
-              {!!successMsg && (
-                      <Alert severity="success" sx={{ mb: 3 }}>
-                        {successMsg}
-                      </Alert>
-                    )}
+      {!!errorMsg && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {errorMsg}
+        </Alert>
+      )}
+      {!!successMsg && (
+        <Alert severity="success" sx={{ mb: 3 }}>
+          {successMsg}
+        </Alert>
+      )}
       {!isPasswordReset ? (
         <>
           <Box textAlign="center" mb={4}>
@@ -132,8 +138,13 @@ export default function ResetPasswordView() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setNewPasswordVisible(!newPasswordVisible)} edge="end">
-                      <Iconify icon={newPasswordVisible ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                    <IconButton
+                      onClick={() => setNewPasswordVisible(!newPasswordVisible)}
+                      edge="end"
+                    >
+                      <Iconify
+                        icon={newPasswordVisible ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                      />
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -149,19 +160,19 @@ export default function ResetPasswordView() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} edge="end">
-                      <Iconify icon={confirmPasswordVisible ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                    <IconButton
+                      onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                      edge="end"
+                    >
+                      <Iconify
+                        icon={confirmPasswordVisible ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                      />
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              loading={isSubmitting}
-              fullWidth
-            >
+            <LoadingButton type="submit" variant="contained" loading={isSubmitting} fullWidth>
               Submit
             </LoadingButton>
           </Box>
@@ -188,8 +199,3 @@ export default function ResetPasswordView() {
     </Box>
   );
 }
-
-
-
-
-

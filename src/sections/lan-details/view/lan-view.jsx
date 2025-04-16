@@ -1,20 +1,17 @@
-import { paths } from 'src/routes/paths';
-import { DashboardContent } from 'src/layouts/dashboard';
-import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
-import {
-  Card,
-  Stack,
-  Grid,
-  Box,
-  Link,
-  Button
-} from '@mui/material';
+import React, { useEffect } from 'react';
+
 import CardHeader from '@mui/material/CardHeader';
-import React, { useState, useEffect } from 'react';
-import axios, { endpoints } from 'src/utils/axios';
-import { Form, Field } from 'src/components/hook-form';
-import { Iconify } from 'src/components/iconify';
+import { Box, Card, Grid, Link, Stack, Button } from '@mui/material';
+
+import { paths } from 'src/routes/paths';
+
+import axios from 'src/utils/axios';
+
+import { DashboardContent } from 'src/layouts/dashboard';
+
+import { Form } from 'src/components/hook-form';
 import { DownloadButton } from 'src/components/file-thumbnail';
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 const STORAGE_KEY = 'your_storage_key';
 
@@ -33,12 +30,12 @@ export function LanDetailsView() {
 
     fetchLoanDetails();
   }, []);
-  
-  const loanId = "20012345670"; 
+
+  const loanId = '20012345670';
 
   const maskedLoanId = loanId.replace(
     /^(\d{3})\d+(?=\d$)/,
-    (_, firstThree) => firstThree + "*".repeat(loanId.length - 4)
+    (_, firstThree) => firstThree + '*'.repeat(loanId.length - 4)
   );
 
   return (
@@ -67,8 +64,6 @@ export function LanDetailsView() {
           NDC
         </Button>
       </Box>
-
-
 
       <Grid container spacing={2}>
         {/* LEFT SIDE - Customer & Vehicle Details */}
@@ -105,7 +100,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                      Vikrant Mirase
+                        Vikrant Mirase
                       </Link>
                     </Grid>
                   </Grid>

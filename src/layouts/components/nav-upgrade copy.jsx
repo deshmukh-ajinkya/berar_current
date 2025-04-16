@@ -3,16 +3,11 @@ import { m } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import { alpha as hexAlpha } from '@mui/material/styles';
-
-import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
 
-import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +19,6 @@ export function NavUpgrade({ sx, ...other }) {
   //         <Avatar src="" alt="" sx={{ width: 48, height: 48 }}>
   //           DEMO
   //         </Avatar>
-
   //         <Label
   //           color="success"
   //           variant="filled"
@@ -40,7 +34,6 @@ export function NavUpgrade({ sx, ...other }) {
   //           Free
   //         </Label>
   //       </Box>
-
   //       <Stack spacing={0.5} sx={{ mb: 2, mt: 1.5, width: 1 }}>
   //         <Typography
   //           variant="subtitle2"
@@ -49,7 +42,6 @@ export function NavUpgrade({ sx, ...other }) {
   //         >
   //           DEMO
   //         </Typography>
-
   //         <Typography
   //           variant="body2"
   //           noWrap
@@ -58,7 +50,6 @@ export function NavUpgrade({ sx, ...other }) {
   //           demo@gmail.com
   //         </Typography>
   //       </Stack>
-
   //       <Button variant="contained" href={paths.minimalStore} target="_blank" rel="noopener">
   //         Upgrade to Pro
   //       </Button>

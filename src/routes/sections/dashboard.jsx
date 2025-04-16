@@ -32,7 +32,6 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       { path: 'lan-details/view', element: <LanViewPage /> },
-
     ],
   },
   // {
@@ -43,4 +42,3 @@ export const dashboardRoutes = [
   //   ],
   // },
 ];
-

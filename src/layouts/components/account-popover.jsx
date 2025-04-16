@@ -1,4 +1,5 @@
-import { useState, useCallback,useContext,useEffect  } from 'react';
+import { useContext } from 'react';
+
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
@@ -25,7 +26,7 @@ export function AccountPopover({ data = [], sx, ...other }) {
 
   const pathname = usePathname();
 
-  const { user,checkUserSession } = useContext(AuthContext);
+  const { user, checkUserSession } = useContext(AuthContext);
 
   const handleClickItem = (path) => {
     popover.onClose();

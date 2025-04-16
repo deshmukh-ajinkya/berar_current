@@ -6,6 +6,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
+
 import { mainRoutes } from './main';
 import { authRoutes } from './auth';
 import { dashboardRoutes } from './dashboard';
@@ -41,9 +42,9 @@ export function Router() {
     // Dashboard
     ...dashboardRoutes,
 
-     // Main
-     ...mainRoutes,
-     
+    // Main
+    ...mainRoutes,
+
     // Components
     ...componentsRoutes,
 

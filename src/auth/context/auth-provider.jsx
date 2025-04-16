@@ -1,12 +1,9 @@
 import { useMemo, useEffect, useCallback } from 'react';
 
 import { useSetState } from 'src/hooks/use-set-state';
-import Cookies from 'js-cookie';
-import axios, { endpoints } from 'src/utils/axios';
-import { decryptValue } from 'src/utils/crypto';
-import { STORAGE_KEY } from './constant';
+
+import { setSession } from './utils';
 import { AuthContext } from './auth-context';
-import { setSession, isValidToken } from './utils';
 // ----------------------------------------------------------------------
 export function AuthProvider({ children }) {
   const { state, setState } = useSetState({
@@ -31,7 +28,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   // ----------------------------------------------------------------------
-  
+
   const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
 
   const status = state.loading ? 'loading' : checkAuthenticated;
