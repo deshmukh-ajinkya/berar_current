@@ -8,7 +8,6 @@ import { alpha as hexAlpha } from '@mui/material/styles';
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
 
-
 // ----------------------------------------------------------------------
 
 export function NavUpgrade({ sx, ...other }) {
