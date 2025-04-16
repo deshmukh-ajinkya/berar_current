@@ -28,17 +28,24 @@ export const Logo = forwardRef(
      * */
     const singleLogo = (
       <Box
-        alt="Single logo"
         component="img"
-        src="/logo/logo-single.svg"
-        width="100%"
-        height="100%"
-        sx={{ mt: 2 }}
+        src="/logo/logo-short.png"
+        alt="mini-logo"
+        width={30}
+        height={30}
+        borderRadius={0.5}
       />
     );
 
     const fullLogo = (
-      <Box alt="Full logo" component="img" src="/logo/logo-full.svg" width="100%" height="100%" />
+      <Box
+        alt="Full logo"
+        component="img"
+        src="/logo/logo-full.svg"
+        width="100%"
+        height="fit-content"
+        borderRadius={0.5}
+      />
     );
 
     // const singleLogo = (

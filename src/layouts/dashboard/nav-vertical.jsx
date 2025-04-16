@@ -34,7 +34,8 @@ export function NavVertical({ sx, data, slots, isNavMini, layoutQuery, onToggleN
     <>
       {slots?.topArea ?? (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 2.5 }}>
-          <Logo />
+          {/* <Logo /> */}
+          <Box component="img" src="/logo/logo-short.png" alt="mini-logo" width={30} height={30} borderRadius={0.5} />
         </Box>
       )}
 
