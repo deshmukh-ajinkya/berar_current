@@ -1,5 +1,5 @@
 import { z as zod } from 'zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -13,6 +13,7 @@ import { Form, Field } from 'src/components/hook-form';
 
 import { FormHead } from 'src/auth/components/form-head';
 
+import axios from 'axios';
 import { signInWithPassword } from '../context';
 
 export const SignInSchema = zod.object({
@@ -53,10 +54,12 @@ export function JwtSignInView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    const response = await axios.post('http://localhost:8000/api/customer/send-otp/', data);
+    console.log(response);
     try {
-      await signInWithPassword({ username: data.username });
-      sessionStorage.setItem('username', data.username);
-      router.push(paths.auth.verify);
+      if (response.status === 200 && response.statusText === 'OK') {
+        router.push(paths.auth.verify);
+      }
     } catch (error) {
       console.error(error);
       setErrorMsg(error.message || 'Something went wrong.');
