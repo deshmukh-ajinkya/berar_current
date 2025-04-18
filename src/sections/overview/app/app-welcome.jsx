@@ -45,6 +45,7 @@ export function AppWelcome({ title, description, action, img, sx, ...other }) {
           flexDirection: 'column',
           alignItems: { xs: 'center', md: 'flex-start' },
         }}
+        key={title}
       >
         <Typography variant="h4" sx={{ whiteSpace: 'pre-line', mb: 1 }}>
           {title}

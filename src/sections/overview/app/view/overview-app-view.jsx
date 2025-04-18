@@ -1,38 +1,25 @@
 import { useRef, useState, useEffect } from 'react';
-
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
-
 import { paths } from 'src/routes/paths';
-
 import axios, { endpoints } from 'src/utils/axios';
-
 import { DashboardContent } from 'src/layouts/dashboard';
-
-import { useData } from 'src/auth/context/initialState';
 import { AppWelcome } from '../app-welcome';
 
 export function OverviewAppView() {
   const [loanData, setLoanData] = useState([]);
   const hasFetched = useRef(false);
-  const { state } = useData();
+  const username = sessionStorage.getItem('username');
 
   useEffect(() => {
     const fetchLoanData = async () => {
       try {
-        const stored = sessionStorage.getItem('username') || '';
-
         const response = await axios.post(endpoints.auth.profileget, {
-          username: state.username.username,
+          username,
         });
-
-        console.log('🚀 API response:', response);
-
         const profiles = response?.data?.profiles || [];
 
         setLoanData(profiles);
-
-        console.log('✅ Final profiles to show:', profiles);
       } catch (error) {
         console.error('❌ Error fetching loan data:', error);
       }
@@ -57,6 +44,10 @@ export function OverviewAppView() {
                   variant="contained"
                   color="primary"
                   href={`${paths.dashboard.lan_details}`}
+                  onClick={() => {
+                    sessionStorage.setItem('user', loan.loan_id);
+                    window.location.href = paths.dashboard.lan_details;
+                  }}
                 >
                   Show
                 </Button>

@@ -59,7 +59,7 @@ export function JwtSignInView() {
     const response = await axios.post('http://localhost:8000/api/customer/send-otp/', data);
     console.log(response);
     try {
-      if (response.data.recipients[0].mobile_number === data.username) {
+      if (response.status === 200) {
         dispatch({ type: 'VERIFY_OTP', payload: { username: data.username } });
         router.push(paths.auth.verify);
       }

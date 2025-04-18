@@ -10,6 +10,7 @@ import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 export function LanDetailsView() {
   const [loanDetails, setLoanDetails] = useState([]);
+  const loan_id = sessionStorage.getItem('user');
 
   useEffect(() => {
     let didCancel = false;
@@ -17,8 +18,9 @@ export function LanDetailsView() {
     const fetchLoanDetails = async () => {
       try {
         const response = await axios.post('api/customer/loan-detail/', {
-          loan_id: '5000001',
+          loan_id,
         });
+        
         if (!didCancel && response.status === 200) {
           setLoanDetails(response.data.loan_details[0]);
         }
@@ -34,7 +36,7 @@ export function LanDetailsView() {
     return () => {
       didCancel = true;
     };
-  }, []);
+  }, [loan_id]); // 👈 add loan_id here
 
   function maskIdentifier(value = '') {
     if (!value || value.length <= 4) return value;

@@ -33,7 +33,7 @@ export const fetcher = async (args) => {
 export const endpoints = {
   auth: {
     // me: '/api/v1/auth/checkLogin',
-    signIn: '/api/customer/request-otp/',
+    signIn: '/api/customer/send-otp/',
     twoStep: '/api/customer/verify-otp/',
     profileget: '/api/customer/profile/',
     loanDetails: 'api/customer/loan-detail/',

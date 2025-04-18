@@ -42,6 +42,7 @@ export function VerifyView() {
   const router = useRouter();
   const { checkUserSession } = useAuthContext(); // ✅ Move this here inside the function
   const { state } = useData();
+  const username = sessionStorage.setItem('username', state.username.username);
   const methods = useForm({
     resolver: zodResolver(VerifySchema),
     defaultValues: { code: '' },
@@ -54,14 +55,8 @@ export function VerifyView() {
   } = methods;
 
   const onSubmit = handleSubmit(async ({ code }) => {
-    // if (!username) {
-    //   setError('code', { message: 'Session expired. Please sign in again.' });
-    //   return;
-    // }
     try {
-      const check = await verifyOtp({ username: state.username.username, otp: code });
-      console.log(check);
-
+      await verifyOtp({ username: state.username.username, otp: code });
       await checkUserSession?.();
       router.push(paths.dashboard.root);
     } catch (error) {
