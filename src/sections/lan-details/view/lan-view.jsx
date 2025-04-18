@@ -1,42 +1,50 @@
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import CardHeader from '@mui/material/CardHeader';
 import { Box, Card, Grid, Link, Stack, Button } from '@mui/material';
-
 import { paths } from 'src/routes/paths';
-
 import axios from 'src/utils/axios';
-
 import { DashboardContent } from 'src/layouts/dashboard';
-
 import { Form } from 'src/components/hook-form';
 import { DownloadButton } from 'src/components/file-thumbnail';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-const STORAGE_KEY = 'your_storage_key';
-
 export function LanDetailsView() {
+  const [loanDetails, setLoanDetails] = useState([]);
+
   useEffect(() => {
+    let didCancel = false;
+
     const fetchLoanDetails = async () => {
       try {
-        const response = await axios.post('api/customer_live/loan-detail/', {
-          lan: '1BERAR000005000001', // Replace with dynamic value if needed
+        const response = await axios.post('api/customer/loan-detail/', {
+          loan_id: '5000001',
         });
-        console.log('📦 Loan Details Response:', response.data);
+        if (!didCancel && response.status === 200) {
+          setLoanDetails(response.data.loan_details[0]);
+        }
       } catch (error) {
-        console.error('❌ Error fetching loan details:', error);
+        if (!didCancel) {
+          console.error('❌ Error fetching loan details:', error);
+        }
       }
     };
 
     fetchLoanDetails();
+
+    return () => {
+      didCancel = true;
+    };
   }, []);
 
-  const loanId = '20012345670';
+  function maskIdentifier(value = '') {
+    if (!value || value.length <= 4) return value;
 
-  const maskedLoanId = loanId.replace(
-    /^(\d{3})\d+(?=\d$)/,
-    (_, firstThree) => firstThree + '*'.repeat(loanId.length - 4)
-  );
+    const visibleStart = value.slice(0, 3);
+    const visibleEnd = value.slice(-1);
+    const maskedMiddle = '*'.repeat(value.length - 4);
+
+    return `${visibleStart}${maskedMiddle}${visibleEnd}`;
+  }
 
   return (
     <DashboardContent>
@@ -76,11 +84,11 @@ export function LanDetailsView() {
                 <Stack spacing={2} sx={{ p: 3, typography: 'body2' }}>
                   <Grid container spacing={1} alignItems="center">
                     <Grid item xs={6}>
-                      <b>Branch Name :</b>
+                      <b>Branch ID :</b>
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        Manewada
+                        {loanDetails.branch_id}
                       </Link>
                     </Grid>
                   </Grid>
@@ -90,7 +98,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        {maskedLoanId}
+                        {maskIdentifier(loanDetails.global_id)}
                       </Link>
                     </Grid>
                   </Grid>
@@ -100,7 +108,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        Vikrant Mirase
+                        {loanDetails.name}
                       </Link>
                     </Grid>
                   </Grid>
@@ -110,7 +118,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        1234567890
+                        {loanDetails.mobile_number}
                       </Link>
                     </Grid>
                   </Grid>
@@ -120,7 +128,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        {maskedLoanId}
+                        {maskIdentifier(loanDetails.aadhar_number)}
                       </Link>
                     </Grid>
                   </Grid>
@@ -139,7 +147,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        Honda
+                        {loanDetails.brand}
                       </Link>
                     </Grid>
                   </Grid>
@@ -149,7 +157,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        {maskedLoanId}
+                        {maskIdentifier(loanDetails.model)}
                       </Link>
                     </Grid>
                   </Grid>
@@ -159,7 +167,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        MH49WE2943
+                        {loanDetails.vehicle_number}
                       </Link>
                     </Grid>
                   </Grid>
@@ -169,7 +177,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        253646447464
+                        {loanDetails.chechis_number}
                       </Link>
                     </Grid>
                   </Grid>
@@ -179,7 +187,7 @@ export function LanDetailsView() {
                     </Grid>
                     <Grid item xs={6}>
                       <Link variant="subtitle2" color="inherit">
-                        {maskedLoanId}
+                        {maskIdentifier(loanDetails.engine_number)}
                       </Link>
                     </Grid>
                   </Grid>
@@ -201,7 +209,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.account_number)}
                     </Link>
                   </Grid>
                 </Grid>
@@ -211,7 +219,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.loan_id)}
                     </Link>
                   </Grid>
                 </Grid>
@@ -221,7 +229,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.scheme_name)}
                     </Link>
                   </Grid>
                 </Grid>
@@ -231,8 +239,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {/* {maskedLoanId} */}
-                      12-02-2025
+                      {loanDetails.finance_date}
                     </Link>
                   </Grid>
                 </Grid>
@@ -242,8 +249,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {/* {maskedLoanId} */}
-                      12-02-2025
+                      {loanDetails.tenure}
                     </Link>
                   </Grid>
                 </Grid>
@@ -253,8 +259,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {/* {maskedLoanId} */}
-                      12-02-2025
+                      {loanDetails.maturity_date}
                     </Link>
                   </Grid>
                 </Grid>
@@ -264,8 +269,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {/* {maskedLoanId} */}
-                      Active
+                      {loanDetails.loan_status}
                     </Link>
                   </Grid>
                 </Grid>
@@ -275,8 +279,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {/* {maskedLoanId} */}
-                      12-02-2025
+                      {loanDetails.closure_date}
                     </Link>
                   </Grid>
                 </Grid>
@@ -286,7 +289,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.repo_flag)}
                     </Link>
                   </Grid>
                 </Grid>
@@ -296,7 +299,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.write_off_amount)}
                     </Link>
                   </Grid>
                 </Grid>
@@ -306,7 +309,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      5 %
+                      {loanDetails.interest}
                     </Link>
                   </Grid>
                 </Grid>
@@ -316,7 +319,7 @@ export function LanDetailsView() {
                   </Grid>
                   <Grid item xs={6}>
                     <Link variant="subtitle2" color="inherit">
-                      {maskedLoanId}
+                      {maskIdentifier(loanDetails.duplicate_noc_charge)}
                     </Link>
                   </Grid>
                 </Grid>

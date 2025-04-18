@@ -19,6 +19,7 @@ import { FormReturnLink } from 'src/auth/components/form-return-link';
 
 import { verifyOtp } from '../context';
 import { useAuthContext } from '../hooks';
+import { useData } from '../context/initialState';
 
 const VerifySchema = zod.object({
   code: zod.string().min(6, { message: 'Code must be at least 6 characters!' }),
@@ -40,6 +41,7 @@ function generateToken(username) {
 export function VerifyView() {
   const router = useRouter();
   const { checkUserSession } = useAuthContext(); // ✅ Move this here inside the function
+  const { state } = useData();
   const methods = useForm({
     resolver: zodResolver(VerifySchema),
     defaultValues: { code: '' },
@@ -52,13 +54,14 @@ export function VerifyView() {
   } = methods;
 
   const onSubmit = handleSubmit(async ({ code }) => {
-    const username = sessionStorage.getItem('username');
     // if (!username) {
     //   setError('code', { message: 'Session expired. Please sign in again.' });
     //   return;
     // }
     try {
-      await verifyOtp({ username, otp: code });
+      const check = await verifyOtp({ username: state.username.username, otp: code });
+      console.log(check);
+
       await checkUserSession?.();
       router.push(paths.dashboard.root);
     } catch (error) {

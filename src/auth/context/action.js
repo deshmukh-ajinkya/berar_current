@@ -22,6 +22,8 @@ export const verifyOtp = async ({ username, otp }) => {
   try {
     const params = { username, otp };
     const res = await axios.post(endpoints.auth.twoStep, params);
+    console.log(res);
+
     if (res.status !== 200) {
       throw new Error('OTP verification failed');
     }
@@ -30,7 +32,7 @@ export const verifyOtp = async ({ username, otp }) => {
     await setSession(accesstoken, userData); // This already sets in sessionStorage
     return true;
   } catch (error) {
-    console.error('❌ Error during OTP verification:', error);
+    console.error('❌ Error during OTP verification:', error.message);
     throw error;
   }
 };

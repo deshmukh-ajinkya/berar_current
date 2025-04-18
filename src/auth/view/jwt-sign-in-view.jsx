@@ -15,6 +15,7 @@ import { FormHead } from 'src/auth/components/form-head';
 
 import axios from 'axios';
 import { signInWithPassword } from '../context';
+import { useData } from '../context/initialState';
 
 export const SignInSchema = zod.object({
   username: zod
@@ -42,6 +43,7 @@ export const SignInSchema = zod.object({
 export function JwtSignInView() {
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
+  const { dispatch } = useData();
 
   const methods = useForm({
     resolver: zodResolver(SignInSchema),
@@ -57,7 +59,8 @@ export function JwtSignInView() {
     const response = await axios.post('http://localhost:8000/api/customer/send-otp/', data);
     console.log(response);
     try {
-      if (response.status === 200 && response.statusText === 'OK') {
+      if (response.data.recipients[0].mobile_number === data.username) {
+        dispatch({ type: 'VERIFY_OTP', payload: { username: data.username } });
         router.push(paths.auth.verify);
       }
     } catch (error) {
