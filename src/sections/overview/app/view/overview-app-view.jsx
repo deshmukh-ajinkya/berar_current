@@ -56,7 +56,7 @@ export function OverviewAppView() {
                 <Button
                   variant="contained"
                   color="primary"
-                  href={`${paths.dashboard.lan_details}?lan=${loan.loan_id}`}
+                  href={`${paths.dashboard.lan_details}`}
                 >
                   Show
                 </Button>
